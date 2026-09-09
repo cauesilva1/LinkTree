@@ -7,6 +7,7 @@ const PALETTES = {
 
 const EMAIL = "cauecatonesilva@gmail.com";
 const GITHUB_USER = "cauesilva1";
+const GITHUB_URL = "https://github.com/cauesilva1";
 const LINKEDIN_URL =
   "https://www.linkedin.com/in/cauecatonesilva1551/?locale=en-US";
 const PORTFOLIO_URL = "https://portifolio-caue.vercel.app";
@@ -189,6 +190,9 @@ function githubMarkup(data) {
     </div>
     <p>Latest public builds from this outpost.</p>
     <ul class="mission-list">${repos}</ul>
+    <div class="comms">
+      <a class="action secondary" href="${GITHUB_URL}" target="_blank" rel="noopener noreferrer">Open GitHub profile</a>
+    </div>
   `;
 }
 
@@ -198,7 +202,7 @@ function githubFallback() {
     <p class="sector">SECTOR: CODE OUTPOST · @${GITHUB_USER}</p>
     <p>Live scan is offline. The station is still reachable.</p>
     <div class="comms">
-      <a class="action" href="https://github.com/${GITHUB_USER}" target="_blank" rel="noopener noreferrer">Open GitHub station</a>
+      <a class="action" href="${GITHUB_URL}" target="_blank" rel="noopener noreferrer">Open GitHub profile</a>
     </div>
   `;
 }
