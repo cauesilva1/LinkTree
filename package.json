@@ -1,0 +1,7 @@
+{
+  "name": "caue-silva-mission-select",
+  "private": true,
+  "engines": {
+    "node": "22.x"
+  }
+}

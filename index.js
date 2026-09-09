@@ -7,29 +7,63 @@ const PALETTES = {
 
 const EMAIL = "cauecatonesilva@gmail.com";
 const GITHUB_USER = "cauesilva1";
-const LINKEDIN_URL = "https://www.linkedin.com/in/cauecatonesilva1551/";
+const LINKEDIN_URL =
+  "https://www.linkedin.com/in/cauecatonesilva1551/?locale=en-US";
 const PORTFOLIO_URL = "https://portifolio-caue.vercel.app";
 
-const FEATURED_PROJECTS = [
+const PROJECTS = [
   {
-    name: "OmniScout",
-    blurb: "Multi-sport scouting platform with rankings, dashboards, and live data.",
-    url: "https://github.com/cauesilva1",
+    title: "OmniScout",
+    blurb:
+      "Multi-sport scouting platform for soccer and basketball — rankings, dashboards, filters, and automated ESPN data sync.",
+    stack: "Next.js · TypeScript · Prisma · Supabase",
+    liveUrl: "https://football-intelligence-plataform-8u9.vercel.app",
+    repoUrl: "https://github.com/cauesilva1/Football-intelligence-plataform",
+    platform: "web",
   },
   {
-    name: "Lenda da Quadra",
-    blurb: "Browser basketball career sim built around identity and competition.",
-    url: "https://github.com/cauesilva1",
+    title: "Contribly",
+    blurb:
+      "Open-source matchmaking — discover repos, swipe interest, match with maintainers, and continue the conversation in-app.",
+    stack: "Next.js · TypeScript · Prisma · Supabase",
+    liveUrl: "https://contribly.vercel.app",
+    repoUrl: "https://github.com/cauesilva1/contribly",
+    platform: "web",
   },
   {
-    name: "Geracional",
-    blurb: "Football manager in the browser — squads, budgets, and rebuild loops.",
-    url: "https://github.com/cauesilva1",
+    title: "Companion",
+    blurb:
+      "Pixel-art companion for iPhone — personality, dynamic sky, home-screen widgets, and cloud-first life simulation on Supabase.",
+    stack: "Swift · iOS · Supabase · Widgets",
+    repoUrl: "https://github.com/cauesilva1/Companion-App",
+    platform: "ios",
   },
   {
-    name: "Job Tracker",
-    blurb: "Application tracker with auth, dashboards, and role-aware UI.",
-    url: "https://github.com/cauesilva1",
+    title: "Job Tracker SaaS",
+    blurb:
+      "Application tracker with auth, role-aware UI, interactive dashboards, and reusable component architecture.",
+    stack: "Next.js · TypeScript · Supabase · PostgreSQL",
+    liveUrl: "https://job-tracker-saas-five.vercel.app",
+    repoUrl: "https://github.com/cauesilva1/Job-Tracker-SaaS",
+    platform: "web",
+  },
+  {
+    title: "Daily Reflection",
+    blurb:
+      "AI daily reflections (biblical or psychological) with auth, multilingual support, and saved history.",
+    stack: "Next.js · FastAPI · Supabase · OpenAI",
+    liveUrl: "https://reflex-o-diaria.vercel.app/login",
+    repoUrl: "https://github.com/cauesilva1/reflex-o-Diaria",
+    platform: "web",
+  },
+  {
+    title: "Ticket Generator",
+    blurb:
+      "Campus event tool that generates personalized tickets from GitHub profile data.",
+    stack: "HTML · CSS · JavaScript",
+    liveUrl: "https://ticket-generate.vercel.app",
+    repoUrl: "https://github.com/cauesilva1/Ticket-Generate",
+    platform: "web",
   },
 ];
 
@@ -136,7 +170,7 @@ async function fetchGithub() {
 
 function githubMarkup(data) {
   const repos = data.repos
-    .filter((repo) => !repo.fork)
+    .filter((repo) => !repo.fork && repo.name !== "Companion-App")
     .slice(0, 5)
     .map(
       (repo) => `
@@ -188,28 +222,40 @@ function linkedinMarkup() {
   `;
 }
 
-function projectsMarkup(repos) {
-  const items = (repos?.length ? repos : FEATURED_PROJECTS)
-    .slice(0, 4)
-    .map((item) => {
-      const name = item.name;
-      const blurb = item.blurb || item.description || "Featured build.";
-      const url = item.url || item.html_url || PORTFOLIO_URL;
-      return `
-        <li>
-          <a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">
-            <strong>${escapeHtml(name)}</strong>
-            <small>${escapeHtml(blurb)}</small>
-          </a>
-        </li>`;
-    })
-    .join("");
+function projectCard(project) {
+  const isIos = project.platform === "ios";
+  const actions = isIos
+    ? `<a href="${escapeHtml(project.repoUrl)}" target="_blank" rel="noopener noreferrer">View source</a>`
+    : `<a href="${escapeHtml(project.liveUrl)}" target="_blank" rel="noopener noreferrer">Launch</a>
+       <a href="${escapeHtml(project.repoUrl)}" target="_blank" rel="noopener noreferrer">Source</a>`;
+  const note = isIos
+    ? `<p class="note">iPhone app — you can learn about it here, but it cannot open in a browser.</p>`
+    : "";
+
+  return `
+    <li class="mission-card">
+      <div class="card-head">
+        <strong>${escapeHtml(project.title)}</strong>
+        <span class="badge${isIos ? " badge-ios" : ""}">${isIos ? "iOS ONLY" : "WEB"}</span>
+      </div>
+      <small>${escapeHtml(project.blurb)}</small>
+      <p class="stack">${escapeHtml(project.stack)}</p>
+      ${note}
+      <div class="card-actions">${actions}</div>
+    </li>`;
+}
+
+function projectsMarkup() {
+  const featured = PROJECTS.slice(0, 3).map(projectCard).join("");
+  const more = PROJECTS.slice(3).map(projectCard).join("");
 
   return `
     <h2>PROJECTS COLONY</h2>
     <p class="sector">SECTOR: BUILD LOG</p>
-    <p>Selected missions — product-shaped apps, not just demos.</p>
-    <ul class="mission-list">${items}</ul>
+    <p>Selected missions from the portfolio. Web apps launch here. iOS stays as a briefing.</p>
+    <ul class="mission-list">${featured}</ul>
+    <p class="sector">ALSO WORTH SEEING</p>
+    <ul class="mission-list">${more}</ul>
     <div class="comms">
       <a class="action secondary" href="${PORTFOLIO_URL}" target="_blank" rel="noopener noreferrer">Open full portfolio</a>
     </div>
@@ -343,14 +389,7 @@ function initMap() {
     }
 
     if (mission === "projects") {
-      briefingBody.innerHTML = `<h2>PROJECTS COLONY</h2><p class="sector">SCANNING BUILD LOG...</p>`;
-      try {
-        githubCache = githubCache || (await fetchGithub());
-        const repos = githubCache.repos.filter((repo) => !repo.fork).slice(0, 4);
-        briefingBody.innerHTML = projectsMarkup(repos);
-      } catch {
-        briefingBody.innerHTML = projectsMarkup();
-      }
+      briefingBody.innerHTML = projectsMarkup();
       return;
     }
 

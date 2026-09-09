@@ -650,6 +650,56 @@ footer {
   box-shadow: 2px 2px 0 #000;
 }
 
+.card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.badge {
+  flex-shrink: 0;
+  border: 2px solid var(--panel-edge);
+  padding: 1px 6px;
+  color: var(--green);
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+
+.badge-ios {
+  color: var(--pink);
+  border-color: var(--pink);
+}
+
+.stack {
+  margin: 6px 0 0;
+  color: var(--cyan);
+  font-size: 14px;
+}
+
+.card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.card-actions a {
+  border: 2px solid var(--panel-edge);
+  background: var(--bg-deep);
+  color: var(--gold);
+  padding: 4px 8px;
+  box-shadow: 2px 2px 0 #000;
+  text-decoration: none;
+  font-size: 15px;
+}
+
+.card-actions a:hover,
+.card-actions a:focus-visible {
+  border-color: var(--gold);
+}
+
 .mission-list a:hover,
 .mission-list a:focus-visible {
   border-color: var(--gold);
