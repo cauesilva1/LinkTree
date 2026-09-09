@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta
+      name="description"
+      content="Caue Silva mission map — Front-end Developer in Toronto. GitHub, LinkedIn, projects, and contact."
+    />
+    <meta name="theme-color" content="#0a0e2a" />
+    <meta name="color-scheme" content="dark" />
+    <meta property="og:title" content="Caue Silva — Mission Select" />
+    <meta
+      property="og:description"
+      content="Front-end Developer in Toronto. Land on a planet to explore GitHub, LinkedIn, projects, or contact."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="./image/avatar.jpg" />
+    <link rel="icon" href="./image/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="index.css" />
+    <title>Caue Silva — Mission Select</title>
+  </head>
+  <body>
+    <div class="space" aria-hidden="true"></div>
+    <div class="stars" aria-hidden="true"></div>
+    <div class="stars2" aria-hidden="true"></div>
+    <div class="comet" aria-hidden="true"></div>
+
+    <header class="top">
+      <div class="pilot">
+        <img
+          class="pilot-avatar"
+          src="./image/avatar.jpg?v=2"
+          alt="Photo of Caue Silva"
+          width="56"
+          height="56"
+        />
+        <div class="pilot-copy">
+          <h1 class="title pixel">CAUE SILVA</h1>
+          <p class="subtitle">FRONT-END DEVELOPER</p>
+          <p class="tagline">CHOOSE YOUR DESTINATION</p>
+        </div>
+      </div>
+      <div class="hud">
+        <span class="status">STATUS: OPEN TO NEW MISSIONS</span>
+        <span>BASE: TORONTO, CA</span>
+      </div>
+    </header>
+
+    <p class="scrollhint">tap a planet to land</p>
+
+    <main class="map" id="map">
+      <svg
+        class="path"
+        viewBox="0 0 100 100"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <path class="path-line" id="pathLine" d="M 30 16 L 70 38 L 30 62 L 70 84" />
+      </svg>
+
+      <a
+        class="node"
+        id="n1"
+        style="--x: 30%; --y: 16%"
+        href="https://github.com/cauesilva1"
+        data-mission="github"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="GitHub"
+      >
+        <canvas width="12" height="12" data-planet="cyan"></canvas>
+        <span class="node-label">GITHUB</span>
+      </a>
+
+      <a
+        class="node"
+        id="n2"
+        style="--x: 70%; --y: 38%"
+        href="https://www.linkedin.com/in/cauecatonesilva1551/"
+        data-mission="linkedin"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="LinkedIn"
+      >
+        <canvas width="12" height="12" data-planet="pink"></canvas>
+        <span class="node-label">LINKEDIN</span>
+      </a>
+
+      <a
+        class="node"
+        id="n3"
+        style="--x: 30%; --y: 62%"
+        href="https://portifolio-caue.vercel.app"
+        data-mission="projects"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Projects"
+      >
+        <canvas width="12" height="12" data-planet="green"></canvas>
+        <span class="node-label">PROJECTS</span>
+      </a>
+
+      <a
+        class="node"
+        id="n4"
+        style="--x: 70%; --y: 84%"
+        href="mailto:cauecatonesilva@gmail.com"
+        data-mission="contact"
+        aria-label="Contact"
+      >
+        <div class="ring"></div>
+        <canvas width="12" height="12" data-planet="gold"></canvas>
+        <span class="node-label">CONTACT</span>
+      </a>
+
+      <div class="ship" id="ship" aria-hidden="true">
+        <div class="thrust"></div>
+        <canvas width="12" height="12"></canvas>
+      </div>
+    </main>
+
+    <footer>
+      <span class="hint-touch">Tap a planet — the ship lands, then the briefing opens</span>
+      <span class="hint-desktop">Hover or click a planet to land</span>
+    </footer>
+
+    <div class="briefing" id="briefing" hidden>
+      <div
+        class="briefing-panel"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="briefing-title"
+      >
+        <div class="briefing-bar">
+          <p class="pixel briefing-kicker" id="briefing-title">MISSION BRIEFING</p>
+          <button class="briefing-close" type="button" data-close>
+            RETURN
+          </button>
+        </div>
+        <div class="briefing-body" id="briefing-body"></div>
+      </div>
+    </div>
+
+    <script src="index.js"></script>
+  </body>
+</html>
