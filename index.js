@@ -43,17 +43,15 @@ const PROJECTS = [
     blurb:
       "Application tracker with auth, role-aware UI, interactive dashboards, and reusable component architecture.",
     stack: "Next.js · TypeScript · Supabase · PostgreSQL",
-    liveUrl: "https://job-tracker-saas-five.vercel.app",
     repoUrl: "https://github.com/cauesilva1/Job-Tracker-SaaS",
     platform: "web",
   },
   {
-    title: "Daily Reflection",
+    title: "AI's Office",
     blurb:
-      "AI daily reflections (biblical or psychological) with auth, multilingual support, and saved history.",
-    stack: "Next.js · FastAPI · Supabase · OpenAI",
-    liveUrl: "https://reflex-o-diaria.vercel.app/login",
-    repoUrl: "https://github.com/cauesilva1/reflex-o-Diaria",
+      "Pixel-art office where you hire AI agents, assign missions, and watch them work the board.",
+    stack: "Next.js · TypeScript · Prisma",
+    repoUrl: "https://github.com/cauesilva1/AI-s-Office",
     platform: "web",
   },
   {
@@ -61,7 +59,6 @@ const PROJECTS = [
     blurb:
       "Campus event tool that generates personalized tickets from GitHub profile data.",
     stack: "HTML · CSS · JavaScript",
-    liveUrl: "https://ticket-generate.vercel.app",
     repoUrl: "https://github.com/cauesilva1/Ticket-Generate",
     platform: "web",
   },
@@ -224,10 +221,11 @@ function linkedinMarkup() {
 
 function projectCard(project) {
   const isIos = project.platform === "ios";
-  const actions = isIos
-    ? `<a href="${escapeHtml(project.repoUrl)}" target="_blank" rel="noopener noreferrer">View source</a>`
-    : `<a href="${escapeHtml(project.liveUrl)}" target="_blank" rel="noopener noreferrer">Launch</a>
-       <a href="${escapeHtml(project.repoUrl)}" target="_blank" rel="noopener noreferrer">Source</a>`;
+  const canLaunch = Boolean(project.liveUrl) && !isIos;
+  const actions = canLaunch
+    ? `<a href="${escapeHtml(project.liveUrl)}" target="_blank" rel="noopener noreferrer">Launch</a>
+       <a href="${escapeHtml(project.repoUrl)}" target="_blank" rel="noopener noreferrer">Source</a>`
+    : `<a href="${escapeHtml(project.repoUrl)}" target="_blank" rel="noopener noreferrer">${isIos ? "View source" : "Source"}</a>`;
   const note = isIos
     ? `<p class="note">iPhone app — you can learn about it here, but it cannot open in a browser.</p>`
     : "";
